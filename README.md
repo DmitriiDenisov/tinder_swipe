@@ -14,6 +14,8 @@ HOST = 'https://api.gotinder.com'
 TOKEN = "your_token"
 ```
 
+5. `python3 main.py`
+
 ### Original Repo:
 
 https://github.com/fbessez/Tinder
