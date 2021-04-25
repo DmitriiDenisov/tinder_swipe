@@ -26,8 +26,10 @@ def pause():
     sleep(nap_length)
 
 
-def check_slots(rec):
-    NUMS = ["ⳊꚨI", "Oཏꗚ", "ອꚨI", "ອꚨl", "ອךI", "9ገI", "ꏿཏꕃ", "WhatsApp", "Whatsap"]
+NUMS = ["ⳊꚨI", "Oཏꗚ", "ອꚨI", "ອꚨl", "ອךI", "9ገI", "ꏿཏꕃ", "WhatsApp", "Whatsap"]
+
+
+def check_sluts(rec):
     for num in NUMS:
         if rec['user'].get('jobs') and num in rec['user'].get('jobs')[0]['title']['name']:
             return True
