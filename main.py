@@ -1,6 +1,11 @@
 from config import TOKEN
 from utils.features import check_sluts
 from utils.main_apis import TinderAPI
+from utils.features import calculate_age
+import matplotlib.pyplot as plt
+from skimage import io
+
+plt.close('all')
 
 # https://github.com/MMcintire96/python_TinderAPI
 tinderApi = TinderAPI(TOKEN)
@@ -25,5 +30,20 @@ for rec in recommendations_v2['data']['results']:
     elif check_sluts(rec):
         tinderApi.dislike(user_id)
     else:
-        resp = tinderApi.like(user_id)
-        print("Likes Remaining:", resp['likes_remaining'])
+        for photo in rec['user']['photos']:
+            url = photo['url']
+            fig = plt.figure()
+            image = io.imread(url)
+            plt.imshow(image)
+            plt.show(block=False)
+        print(f'Age:{calculate_age(rec["user"]["birth_date"])}')
+        print(f'Bio:{rec["user"]["bio"]}')
+        print('----------------------------------------------')
+        decision = bool(int(input("Like:1, Dislike:0. Your decision: ")))
+        if decision:
+            resp = tinderApi.like(user_id)
+            print("Likes Remaining:", resp['likes_remaining'])
+        else:
+            tinderApi.dislike(user_id)
+        plt.close(fig)
+        plt.close('all')
